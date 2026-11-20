@@ -56,9 +56,10 @@ final class DirectReplaceStrategy: OutputStrategy {
     private func wordEnds(at location: Int, in client: any IMKTextInput) -> Bool? {
         let length = shownWord.utf16.count
         guard location >= length else { return false }
-        guard let text = client.string(from: NSRange(location: location - length, length: length), actualRange: nil) else {
-            return nil
-        }
+        // IMK writes through `actualRange` without a nil check, so it must point somewhere.
+        var actualRange = NSRange()
+        let range = NSRange(location: location - length, length: length)
+        guard let text = client.string(from: range, actualRange: &actualRange) else { return nil }
         return text == shownWord
     }
 

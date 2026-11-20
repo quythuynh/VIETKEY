@@ -84,6 +84,8 @@ nonisolated final class FakeTextClient: NSObject, IMKTextInput {
     func windowLevel() -> CGWindowLevel { 0 }
     func supportsProperty(_ property: TSMDocumentPropertyTag) -> Bool { false }
     func string(from range: NSRange, actualRange: NSRangePointer!) -> String! {
+        // Like IMK, write through the pointer unconditionally: passing nil crashes.
+        actualRange.pointee = range
         guard NSMaxRange(range) <= (text as NSString).length else { return nil }
         return (text as NSString).substring(with: range)
     }

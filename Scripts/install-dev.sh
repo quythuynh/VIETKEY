@@ -42,4 +42,7 @@ let status = TISRegisterInputSource(url)
 print(status == noErr ? "Registered input source" : "TISRegisterInputSource failed: \(status)")
 EOF
 
+# Start it now: the system won't relaunch an input method right after it crashed repeatedly.
+open -g "$DEST/$APP_NAME"
+
 echo "Installed $DEST/$APP_NAME"
