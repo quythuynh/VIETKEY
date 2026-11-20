@@ -11,6 +11,7 @@ nonisolated final class FakeTextClient: NSObject, IMKTextInput {
     var marked = ""
     var ignoresMarkedText = false
     var reportsCaret = true
+    private(set) var caretQueries = 0
     let bundleID: String
     let clientID: String
 
@@ -47,7 +48,10 @@ nonisolated final class FakeTextClient: NSObject, IMKTextInput {
         }
     }
 
-    func selectedRange() -> NSRange { NSRange(location: reportsCaret ? caret : NSNotFound, length: 0) }
+    func selectedRange() -> NSRange {
+        caretQueries += 1
+        return NSRange(location: reportsCaret ? caret : NSNotFound, length: 0)
+    }
     func markedRange() -> NSRange {
         marked.isEmpty ? NSRange(location: NSNotFound, length: 0) : NSRange(location: caret, length: (marked as NSString).length)
     }

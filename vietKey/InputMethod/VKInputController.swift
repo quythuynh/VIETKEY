@@ -54,7 +54,7 @@ nonisolated final class VKInputController: IMKInputController {
         let session = session
         nonisolated(unsafe) let target = self
         nonisolated(unsafe) var menu: NSMenu?
-        MainActor.assumeIsolated { menu = IMMenu.make(target: target, session: session) }
+        MainActor.assumeIsolated { menu = session.menu(target: target) }
         return menu
     }
 }

@@ -123,7 +123,22 @@ struct InputSessionTests {
         #expect(!session.setMode("com.apple.keylayout.ABC", client: client))
     }
 
+    @Test func activationDoesNotWaitOnTheApp() {
+        let session = makeSession(), client = FakeTextClient()
+        session.activate(client)
+        session.activate(client)
+        #expect(client.caretQueries == 0)
+    }
+
+    @Test func modeIsNotRememberedByDefault() {
+        let session = makeSession(), client = FakeTextClient(bundleID: "test.default")
+        session.activate(client)
+        _ = session.setMode(InputModeSwitcher.englishModeID, client: client)
+        #expect(settings.appModes.isEmpty)
+    }
+
     @Test func modeIsRememberedPerApp() {
+        settings.rememberModePerApp = true
         let session = makeSession(), client = FakeTextClient(bundleID: "test.remembered")
         session.activate(client)
         _ = session.setMode(InputModeSwitcher.englishModeID, client: client)

@@ -17,6 +17,8 @@ final class InputSession {
     private var hotkeyMonitor = HotkeyMonitor()
     private(set) var clientBundleID: String?
     private var composingClientID: String?
+    private var caretCheckedClientID: String?
+    private var menuCache: (key: String, menu: NSMenu)?
 
     init(
         settings: AppSettings = .shared,
@@ -39,7 +41,7 @@ final class InputSession {
         if engine.isComposing && clientID != composingClientID {
             engine.reset()
         }
-        reloadSettings(for: client)
+        reloadSettings()
         restoreModeForCurrentApp()
     }
 
@@ -66,9 +68,8 @@ final class InputSession {
         guard let modeID, let vietnamese = InputModeSwitcher.isVietnamese(modeID: modeID) else {
             return false
         }
-        if vietnamese != modeState.isVietnamese {
-            commit(client)
-        }
+        guard vietnamese != modeState.isVietnamese else { return true }
+        commit(client)
         modeState.isVietnamese = vietnamese
         rememberMode(vietnamese)
         return true
@@ -90,7 +91,7 @@ final class InputSession {
             if engine.options != settings.engineOptions {
                 commit(client)
             }
-            reloadSettings(for: client)
+            reloadSettings()
         }
 
         switch KeyEventMapper.map(event) {
@@ -100,6 +101,9 @@ final class InputSession {
         case .engine(let key):
             if engine.isComposing && !strategy.isInSync(with: client) {
                 engine.reset()
+            }
+            if !engine.isComposing {
+                fallBackToMarkedTextIfCaretUnknown(client, clientID: clientID)
             }
             let output = engine.process(key)
             composingClientID = engine.isComposing ? clientID : nil
@@ -147,13 +151,34 @@ final class InputSession {
         }
     }
 
-    private func reloadSettings(for client: (any IMKTextInput)?) {
+    func menu(target: VKInputController) -> NSMenu {
+        let key = "\(settings.revision)|\(clientBundleID ?? "")"
+        if let menuCache, menuCache.key == key { return menuCache.menu }
+        let menu = IMMenu.make(target: target, session: self)
+        menuCache = (key, menu)
+        return menu
+    }
+
+    /// Uses only the bundle ID: activation must not wait on the client app.
+    private func reloadSettings() {
         engine.options = settings.engineOptions
         engineRevision = settings.revision
-        let mode = StrategyResolver.mode(for: client, settings: settings)
-        if mode != strategyMode {
-            strategy = StrategyResolver.makeStrategy(for: mode)
-            strategyMode = mode
+        caretCheckedClientID = nil
+        useStrategy(StrategyResolver.mode(for: clientBundleID, settings: settings))
+    }
+
+    /// Direct replacement needs the caret position; checked once per client, when typing starts.
+    private func fallBackToMarkedTextIfCaretUnknown(_ client: any IMKTextInput, clientID: String?) {
+        guard strategyMode == .directReplace, caretCheckedClientID != clientID else { return }
+        caretCheckedClientID = clientID
+        if client.selectedRange().location == NSNotFound {
+            useStrategy(.markedText)
         }
+    }
+
+    private func useStrategy(_ mode: OutputMode) {
+        guard mode != strategyMode else { return }
+        strategy = StrategyResolver.makeStrategy(for: mode)
+        strategyMode = mode
     }
 }

@@ -1,5 +1,4 @@
 import Foundation
-import InputMethodKit
 
 enum StrategyResolver {
     /// Terminals and editors with their own text engine, which can't replace text before the cursor.
@@ -32,15 +31,6 @@ enum StrategyResolver {
     static func isRawKeyApp(_ bundleID: String?) -> Bool {
         guard let bundleID else { return false }
         return rawKeyAppPrefixes.contains(where: bundleID.hasPrefix)
-    }
-
-    /// Direct replacement needs the caret position; clients that can't report it get marked text.
-    static func mode(for client: (any IMKTextInput)?, settings: AppSettings) -> OutputMode {
-        let mode = mode(for: client?.bundleIdentifier(), settings: settings)
-        if mode == .directReplace, let client, client.selectedRange().location == NSNotFound {
-            return .markedText
-        }
-        return mode
     }
 
     static func mode(for bundleID: String?, settings: AppSettings) -> OutputMode {

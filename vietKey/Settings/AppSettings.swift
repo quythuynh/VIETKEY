@@ -66,7 +66,7 @@ final class AppSettings {
         let storedOutputModes = defaults.dictionary(forKey: Key.appOutputModes.rawValue) as? [String: String] ?? [:]
         appOutputModes = storedOutputModes.compactMapValues(OutputMode.init)
         excludedApps = defaults.stringArray(forKey: Key.excludedApps.rawValue) ?? []
-        rememberModePerApp = defaults.object(forKey: Key.rememberModePerApp.rawValue) as? Bool ?? true
+        rememberModePerApp = defaults.object(forKey: Key.rememberModePerApp.rawValue) as? Bool ?? false
         appModes = defaults.dictionary(forKey: Key.appModes.rawValue) as? [String: Bool] ?? [:]
         hotkey = defaults.data(forKey: Key.hotkey.rawValue).flatMap { try? JSONDecoder().decode(Hotkey.self, from: $0) } ?? .default
         quickInputHotkey = defaults.data(forKey: Key.quickInputHotkey.rawValue)
