@@ -88,6 +88,18 @@ struct InputSessionTests {
         #expect(client.text == "xin chào")
     }
 
+    @Test func typingContinuesAfterTheAppClearsTheField() {
+        let session = makeSession(), client = FakeTextClient()
+        session.activate(client)
+        type("xin chaof", into: client, with: session)
+        _ = session.handle(KeyEvents.key("⏎"), client: client)
+        client.text = ""
+        client.caret = 0
+        client.staleCaret = 8
+        type("vieejt nam ", into: client, with: session)
+        #expect(client.text == "việt nam ")
+    }
+
     @Test func clientWithoutCaretFallsBackToMarkedText() {
         let session = makeSession(), client = FakeTextClient()
         client.reportsCaret = false

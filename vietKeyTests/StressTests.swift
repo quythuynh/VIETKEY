@@ -12,6 +12,7 @@ struct StressTests {
         case toggleMode
         case changeMethod
         case click(UInt64)
+        case sendMessage
     }
 
     private struct SeededGenerator: RandomNumberGenerator {
@@ -32,6 +33,7 @@ struct StressTests {
             case 3..<4: .toggleMode
             case 4..<5: .changeMethod
             case 5..<8: .click(generator.next())
+            case 8..<10: .sendMessage
             default: .key(Self.keys.randomElement(using: &generator)!)
             }
         }
@@ -63,6 +65,12 @@ struct StressTests {
                 _ = session.handle(KeyEvents.modifiers([]), client: client)
             case .changeMethod:
                 settings.inputMethod = settings.inputMethod == .telex ? .vni : .telex
+            case .sendMessage:
+                // A chat app sends on Enter, clears its field and briefly reports the old caret.
+                if !session.handle(KeyEvents.key("⏎"), client: client) { client.receiveUnhandledKey("⏎") }
+                client.staleCaret = client.caret
+                client.text = ""
+                client.caret = 0
             case .click(let position):
                 // Apps commit marked text on a click; direct replacement notices the moved caret itself.
                 if outputMode == .markedText { session.commit(client) }
