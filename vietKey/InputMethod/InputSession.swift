@@ -51,7 +51,7 @@ final class InputSession {
     }
 
     func commit(_ client: (any IMKTextInput)?) {
-        let text = engine.commit()
+        let text = engine.commitAsShown()
         composingClientID = nil
         #if DEBUG
         if !text.isEmpty {

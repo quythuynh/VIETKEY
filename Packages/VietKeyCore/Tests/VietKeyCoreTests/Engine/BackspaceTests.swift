@@ -31,4 +31,11 @@ struct BackspaceTests {
         var engine = VietEngine()
         #expect(engine.process(.backspace) == .passThrough)
     }
+
+    @Test func commitAsShownKeepsTheDisplayedWord() {
+        var engine = VietEngine()
+        for key in "vieej" { _ = engine.process(.character(key)) }
+        #expect(engine.commitAsShown() == "việ")
+        #expect(!engine.isComposing)
+    }
 }

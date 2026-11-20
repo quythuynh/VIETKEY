@@ -55,6 +55,14 @@ public struct VietEngine: Sendable {
         return text
     }
 
+    /// Ends the word exactly as displayed, without macros or restoring keys: for focus changes,
+    /// clicks and shortcuts, which aren't the user finishing the word.
+    public mutating func commitAsShown() -> String {
+        let text = composing
+        reset()
+        return text
+    }
+
     private func finalText() -> String {
         guard isComposing else { return "" }
         let typed = String(rawKeys)
