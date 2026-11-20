@@ -155,6 +155,34 @@ struct InputSessionTests {
         #expect(client.caretQueries == 0)
     }
 
+    @Test func typingAsksTheAppOnlyWhatItNeeds() {
+        let session = makeSession(), client = FakeTextClient()
+        session.activate(client)
+        let keys = "Tieengs Vieejt raast ddepj "
+        type(keys, into: client, with: session)
+        #expect(client.clientIDQueries == 1)
+        // At most one caret query per key, plus one per client to check the app reports it.
+        #expect(client.caretQueries <= keys.count + 1)
+    }
+
+    @Test func englishModeDoesNotQueryTheApp() {
+        modeState.isVietnamese = false
+        let session = makeSession(), client = FakeTextClient()
+        session.activate(client)
+        let before = (client.clientIDQueries, client.caretQueries)
+        type("hello world ", into: client, with: session)
+        #expect(client.clientIDQueries == before.0)
+        #expect(client.caretQueries == before.1)
+    }
+
+    @Test func markedTextIsVerifiedOncePerClient() {
+        settings.outputMode = .markedText
+        let session = makeSession(), client = FakeTextClient()
+        session.activate(client)
+        type("Tieengs Vieejt ", into: client, with: session)
+        #expect(client.markedRangeQueries == 1)
+    }
+
     @Test func modeIsNotRememberedByDefault() {
         let session = makeSession(), client = FakeTextClient(bundleID: "test.default")
         session.activate(client)

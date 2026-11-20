@@ -12,6 +12,8 @@ nonisolated final class FakeTextClient: NSObject, IMKTextInput {
     var ignoresMarkedText = false
     var reportsCaret = true
     private(set) var caretQueries = 0
+    private(set) var clientIDQueries = 0
+    private(set) var markedRangeQueries = 0
     /// Caret reported instead of the real one, like a chat app right after clearing its input.
     var staleCaret: Int?
     let bundleID: String
@@ -58,10 +60,18 @@ nonisolated final class FakeTextClient: NSObject, IMKTextInput {
         return NSRange(location: reportsCaret ? (staleCaret ?? caret) : NSNotFound, length: 0)
     }
     func markedRange() -> NSRange {
+        markedRangeQueries += 1
+        return currentMarkedRange
+    }
+
+    private var currentMarkedRange: NSRange {
         marked.isEmpty ? NSRange(location: NSNotFound, length: 0) : NSRange(location: caret, length: (marked as NSString).length)
     }
     func bundleIdentifier() -> String! { bundleID }
-    func uniqueClientIdentifierString() -> String! { clientID }
+    func uniqueClientIdentifierString() -> String! {
+        clientIDQueries += 1
+        return clientID
+    }
 
     func attributedSubstring(from range: NSRange) -> NSAttributedString! { nil }
     func length() -> Int { (text as NSString).length }

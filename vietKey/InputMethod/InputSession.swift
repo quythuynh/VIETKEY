@@ -17,7 +17,9 @@ final class InputSession {
     private var hotkeyMonitor = HotkeyMonitor()
     private(set) var clientBundleID: String?
     private var composingClientID: String?
+    private var activeClientID: String?
     private var caretCheckedClientID: String?
+    private var markedTextVerifiedClientIDs: Set<String> = []
     private var menuCache: (key: String, menu: NSMenu)?
 
     init(
@@ -35,6 +37,7 @@ final class InputSession {
     func activate(_ client: (any IMKTextInput)?) {
         clientBundleID = client?.bundleIdentifier()
         let clientID = client?.uniqueClientIdentifierString()
+        activeClientID = clientID
         Log.input.info("activate client=\(self.clientBundleID ?? "?", privacy: .public) composing=\(self.engine.isComposing)")
 
         // IMK may re-activate the same client mid-word; keep the word then.
@@ -80,12 +83,16 @@ final class InputSession {
             toggleMode(client)
             return event.type == .keyDown
         }
-        let clientID = client.uniqueClientIdentifierString()
+        // Every call into the client is a round trip to a possibly busy app: keep them off the
+        // path of keys VIET doesn't handle, and ask for the client's ID once per activation.
         guard event.type == .keyDown, modeState.isVietnamese, !settings.isExcluded(clientBundleID),
-              !StrategyResolver.isRawKeyApp(clientBundleID), !rawKeyClients.contains(clientID)
+              !StrategyResolver.isRawKeyApp(clientBundleID)
         else {
             return false
         }
+        let clientID = activeClientID ?? client.uniqueClientIdentifierString()
+        activeClientID = clientID
+        guard !rawKeyClients.contains(clientID) else { return false }
 
         if settings.revision != engineRevision {
             if engine.options != settings.engineOptions {
@@ -111,7 +118,8 @@ final class InputSession {
 
             // The app ignores marked text (remote desktop, games): hand the key back and pass keys through.
             if strategyMode == .markedText, output.consumed, !output.composing.isEmpty,
-               client.markedRange().location == NSNotFound {
+               !markedTextVerifiedClientIDs.contains(clientID ?? ""),
+               !markedTextShows(in: client, clientID: clientID) {
                 Log.input.notice("\(self.clientBundleID ?? "?", privacy: .public) ignores marked text; passing keys through")
                 engine.reset()
                 composingClientID = nil
@@ -149,6 +157,13 @@ final class InputSession {
         Task { @MainActor in
             modeSelector.select(vietnamese: stored)
         }
+    }
+
+    /// Checked once per client: whether the app displays the marked text we set.
+    private func markedTextShows(in client: any IMKTextInput, clientID: String?) -> Bool {
+        guard client.markedRange().location != NSNotFound else { return false }
+        if let clientID { markedTextVerifiedClientIDs.insert(clientID) }
+        return true
     }
 
     func menu(target: VKInputController) -> NSMenu {

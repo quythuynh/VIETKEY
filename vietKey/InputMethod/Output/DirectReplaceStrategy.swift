@@ -27,15 +27,16 @@ final class DirectReplaceStrategy: OutputStrategy {
         }
         guard output.deleteCount > 0 || !output.insertText.isEmpty else { return }
 
-        // Starting a word: insert at the app's own caret, a reported one may be stale.
+        // Nothing to delete: insert at the app's own caret, a reported one may be stale. Mid-word
+        // the caret was just checked by `isInSync`, so it isn't asked for again.
         guard output.deleteCount > 0 else {
-            let caret = client.selectedRange().location
+            let caret = expectedLocation ?? caretIfKnown(of: client)
             client.insertText(output.insertText, replacementRange: .notFound)
-            expectedLocation = caret == NSNotFound ? nil : caret + output.insertText.utf16.count
+            expectedLocation = caret.map { $0 + output.insertText.utf16.count }
             return
         }
 
-        guard let end = expectedLocation ?? knownCaret(of: client), end >= output.deleteCount else {
+        guard let end = expectedLocation ?? caretIfKnown(of: client), end >= output.deleteCount else {
             Log.input.error("Caret unavailable; direct replacement degraded")
             client.insertText(output.insertText, replacementRange: .notFound)
             expectedLocation = nil
@@ -61,7 +62,7 @@ final class DirectReplaceStrategy: OutputStrategy {
         return text == shownWord
     }
 
-    private func knownCaret(of client: any IMKTextInput) -> Int? {
+    private func caretIfKnown(of client: any IMKTextInput) -> Int? {
         let caret = client.selectedRange().location
         return caret == NSNotFound ? nil : caret
     }
