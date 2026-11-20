@@ -73,6 +73,9 @@ nonisolated final class FakeTextClient: NSObject, IMKTextInput {
     func supportsUnicode() -> Bool { true }
     func windowLevel() -> CGWindowLevel { 0 }
     func supportsProperty(_ property: TSMDocumentPropertyTag) -> Bool { false }
-    func string(from range: NSRange, actualRange: NSRangePointer!) -> String! { nil }
+    func string(from range: NSRange, actualRange: NSRangePointer!) -> String! {
+        guard NSMaxRange(range) <= (text as NSString).length else { return nil }
+        return (text as NSString).substring(with: range)
+    }
     func firstRect(forCharacterRange aRange: NSRange, actualRange: NSRangePointer!) -> NSRect { .zero }
 }

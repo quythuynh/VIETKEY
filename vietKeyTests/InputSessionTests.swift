@@ -100,6 +100,19 @@ struct InputSessionTests {
         #expect(client.text == "việt nam ")
     }
 
+    @Test(arguments: ["ddi", "dduwowngf", "nguwowif", "quas"])
+    func firstWordAfterSendingKeepsItsMarks(word: String) {
+        let session = makeSession(), client = FakeTextClient()
+        session.activate(client)
+        type("xin chaof", into: client, with: session)
+        _ = session.handle(KeyEvents.key("⏎"), client: client)
+        client.text = ""
+        client.caret = 0
+        client.staleCaret = 9
+        type(word + " ", into: client, with: session)
+        #expect(client.text == TypingSimulatorReference.type(word) + " ")
+    }
+
     @Test func clientWithoutCaretFallsBackToMarkedText() {
         let session = makeSession(), client = FakeTextClient()
         client.reportsCaret = false

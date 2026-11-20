@@ -33,3 +33,12 @@ enum KeyEvents {
 func makeSettings() -> AppSettings {
     AppSettings(defaults: UserDefaults(suiteName: "vietKeyTests-\(UUID().uuidString)")!)
 }
+
+/// What the engine alone produces for a word, as the expected screen text.
+enum TypingSimulatorReference {
+    static func type(_ word: String) -> String {
+        var engine = VietEngine()
+        word.forEach { _ = engine.process(.character($0)) }
+        return engine.commit()
+    }
+}
