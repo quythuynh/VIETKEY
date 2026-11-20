@@ -1,0 +1,7 @@
+.DS_Store
+xcuserdata/
+.build-dev/
+Packages/VietKeyCore/.build/
+Packages/VietKeyCore/.swiftpm/
+.build-release/
+CLAUDE.md

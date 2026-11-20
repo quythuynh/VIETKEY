@@ -1,0 +1,876 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "Abbreviation": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Từ viết tắt"
+          }
+        }
+      }
+    },
+    "Add": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thêm"
+          }
+        }
+      }
+    },
+    "Add App…": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thêm ứng dụng…"
+          }
+        }
+      }
+    },
+    "Allow Automatic Paste…": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cho phép tự động dán…"
+          }
+        }
+      }
+    },
+    "Always English in This App": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Luôn gõ tiếng Anh trong ứng dụng này"
+          }
+        }
+      }
+    },
+    "Always type English in these apps": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Luôn gõ tiếng Anh trong các ứng dụng này"
+          }
+        }
+      }
+    },
+    "Apps": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ứng dụng"
+          }
+        }
+      }
+    },
+    "Automatic paste is on.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã bật tự động dán."
+          }
+        }
+      }
+    },
+    "Cancel": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Huỷ"
+          }
+        }
+      }
+    },
+    "Check Again": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kiểm tra lại"
+          }
+        }
+      }
+    },
+    "Choose “VIET” from the input menu in the menu bar. This installer will now quit.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chọn “VIET” trong menu bàn phím trên thanh menu. Trình cài đặt này sẽ thoát."
+          }
+        }
+      }
+    },
+    "Clipboard converted.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã chuyển mã clipboard."
+          }
+        }
+      }
+    },
+    "Convert Clipboard": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chuyển mã clipboard"
+          }
+        }
+      }
+    },
+    "Convert Clipboard…": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chuyển mã clipboard…"
+          }
+        }
+      }
+    },
+    "Converter": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chuyển mã"
+          }
+        }
+      }
+    },
+    "Copied. Press the paste shortcut in the app to insert it.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã chép. Nhấn phím tắt dán trong ứng dụng để chèn vào."
+          }
+        }
+      }
+    },
+    "Copy Result": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chép kết quả"
+          }
+        }
+      }
+    },
+    "Enable Macros": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bật gõ tắt"
+          }
+        }
+      }
+    },
+    "Enable VIET": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bật VIET"
+          }
+        }
+      }
+    },
+    "Enter: paste into %@  ·  ⇧Enter: new line  ·  Esc: cancel": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enter: dán vào %@  ·  ⇧Enter: xuống dòng  ·  Esc: huỷ"
+          }
+        }
+      }
+    },
+    "Expand macros when a word ends": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mở rộng gõ tắt khi kết thúc từ"
+          }
+        }
+      }
+    },
+    "Expands to": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thay bằng"
+          }
+        }
+      }
+    },
+    "Export…": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xuất…"
+          }
+        }
+      }
+    },
+    "For TeamViewer, AnyDesk and virtual machines: press the shortcut, type Vietnamese, then Enter to paste it into the app.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dùng cho TeamViewer, AnyDesk và máy ảo: nhấn phím tắt, gõ tiếng Việt, rồi Enter để dán vào ứng dụng."
+          }
+        }
+      }
+    },
+    "From": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Từ"
+          }
+        }
+      }
+    },
+    "General": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chung"
+          }
+        }
+      }
+    },
+    "Import…": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhập…"
+          }
+        }
+      }
+    },
+    "Input method": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kiểu gõ"
+          }
+        }
+      }
+    },
+    "Input Method": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kiểu gõ"
+          }
+        }
+      }
+    },
+    "Install VIET": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cài VIET"
+          }
+        }
+      }
+    },
+    "Installation": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cài đặt bộ gõ"
+          }
+        }
+      }
+    },
+    "Installed. Choose VIET from the input menu in the menu bar, then close this window.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã cài xong. Chọn VIET trong menu bàn phím trên thanh menu, rồi đóng cửa sổ này."
+          }
+        }
+      }
+    },
+    "Macros": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gõ tắt"
+          }
+        }
+      }
+    },
+    "Modern (hoà, thuỷ)": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kiểu mới (hoà, thuỷ)"
+          }
+        }
+      }
+    },
+    "Modern Tone Placement (hoà, thuỷ)": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đặt dấu kiểu mới (hoà, thuỷ)"
+          }
+        }
+      }
+    },
+    "Open Keyboard Settings…": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mở cài đặt Bàn phím…"
+          }
+        }
+      }
+    },
+    "Output": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hiển thị"
+          }
+        }
+      }
+    },
+    "Output mode": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cách hiển thị"
+          }
+        }
+      }
+    },
+    "Output mode per app": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cách hiển thị theo ứng dụng"
+          }
+        }
+      }
+    },
+    "Paste": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dán"
+          }
+        }
+      }
+    },
+    "Paste with ⌃V instead of ⌘V (remote Windows computers)": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dán bằng ⌃V thay vì ⌘V (máy Windows ở xa)"
+          }
+        }
+      }
+    },
+    "Press shortcut…": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhấn phím tắt…"
+          }
+        }
+      }
+    },
+    "Quick Input": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gõ nhanh"
+          }
+        }
+      }
+    },
+    "Quick Input…": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gõ nhanh…"
+          }
+        }
+      }
+    },
+    "Record": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ghi"
+          }
+        }
+      }
+    },
+    "Remember Vietnamese / English for each app": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhớ tiếng Việt / tiếng Anh cho từng ứng dụng"
+          }
+        }
+      }
+    },
+    "Remote desktop and virtual machine apps (TeamViewer, AnyDesk, Screen Sharing, Parallels…) always get keys directly; type Vietnamese with the input method of the remote computer.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ứng dụng điều khiển từ xa và máy ảo (TeamViewer, AnyDesk, Screen Sharing, Parallels…) luôn nhận phím trực tiếp; hãy gõ tiếng Việt bằng bộ gõ của máy ở xa."
+          }
+        }
+      }
+    },
+    "Remove": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xoá"
+          }
+        }
+      }
+    },
+    "Remove tones and marks": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bỏ dấu"
+          }
+        }
+      }
+    },
+    "Replace directly (no underline)": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thay thế trực tiếp (không gạch chân)"
+          }
+        }
+      }
+    },
+    "Reset": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mặc định"
+          }
+        }
+      }
+    },
+    "Restore keys when a word isn’t Vietnamese": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khôi phục phím đã gõ khi từ không phải tiếng Việt"
+          }
+        }
+      }
+    },
+    "Restore Non-Vietnamese Words": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khôi phục từ không phải tiếng Việt"
+          }
+        }
+      }
+    },
+    "Result": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kết quả"
+          }
+        }
+      }
+    },
+    "Result copied.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã chép kết quả."
+          }
+        }
+      }
+    },
+    "Shortcut": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Phím tắt"
+          }
+        }
+      }
+    },
+    "Show typed text": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hiển thị chữ đang gõ"
+          }
+        }
+      }
+    },
+    "Source": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nguồn"
+          }
+        }
+      }
+    },
+    "Spelling": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chính tả"
+          }
+        }
+      }
+    },
+    "Swap": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đảo chiều"
+          }
+        }
+      }
+    },
+    "Switch Vietnamese / English": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chuyển tiếng Việt / tiếng Anh"
+          }
+        }
+      }
+    },
+    "TCVN3 (ABC)": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TCVN3 (ABC)"
+          }
+        }
+      }
+    },
+    "Telex": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Telex"
+          }
+        }
+      }
+    },
+    "Telex Extended ([ → ơ, ] → ư)": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Telex mở rộng ([ → ơ, ] → ư)"
+          }
+        }
+      }
+    },
+    "The clipboard has no text.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Clipboard không có văn bản."
+          }
+        }
+      }
+    },
+    "the previous app": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ứng dụng trước"
+          }
+        }
+      }
+    },
+    "To": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sang"
+          }
+        }
+      }
+    },
+    "Tone placement": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đặt dấu"
+          }
+        }
+      }
+    },
+    "Traditional (hòa, thủy)": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kiểu cũ (hòa, thủy)"
+          }
+        }
+      }
+    },
+    "Typing": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kiểu gõ"
+          }
+        }
+      }
+    },
+    "Underlined while typing (most compatible)": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gạch chân khi đang gõ (tương thích nhất)"
+          }
+        }
+      }
+    },
+    "Unicode": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unicode"
+          }
+        }
+      }
+    },
+    "Unicode Composite (NFD)": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unicode tổ hợp (NFD)"
+          }
+        }
+      }
+    },
+    "VIET is installed": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã cài VIET"
+          }
+        }
+      }
+    },
+    "VIET is installed and enabled.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "VIET đã được cài và bật."
+          }
+        }
+      }
+    },
+    "VIET is installed but not enabled as an input source.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "VIET đã được cài nhưng chưa bật làm nguồn nhập."
+          }
+        }
+      }
+    },
+    "VIET must be installed in your Input Methods folder before you can type with it.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cần cài VIET vào thư mục Input Methods trước khi gõ."
+          }
+        }
+      }
+    },
+    "VIET Quick Input": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "VIET – Gõ nhanh"
+          }
+        }
+      }
+    },
+    "VIET Settings": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cài đặt VIET"
+          }
+        }
+      }
+    },
+    "VIET Settings…": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cài đặt VIET…"
+          }
+        }
+      }
+    },
+    "VIQR": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "VIQR"
+          }
+        }
+      }
+    },
+    "VNI": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "VNI"
+          }
+        }
+      }
+    },
+    "VNI-Windows": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "VNI-Windows"
+          }
+        }
+      }
+    },
+    "With Telex, typing “text” stays “text” instead of becoming “tẽt”.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Với Telex, gõ “text” sẽ giữ nguyên “text” thay vì thành “tẽt”."
+          }
+        }
+      }
+    },
+    "Without Accessibility access, the text is copied and you paste it yourself.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chưa có quyền Trợ năng (Accessibility): chữ sẽ được chép và bạn tự dán."
+          }
+        }
+      }
+    },
+    "You can also pick “Vietnamese” or “English” of VIET from the input menu in the menu bar.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bạn cũng có thể chọn “Tiếng Việt” hoặc “Tiếng Anh” của VIET trong menu bàn phím trên thanh menu."
+          }
+        }
+      }
+    },
+    "Replacing directly works like UniKey: Enter acts at once. Terminals always use underlined text; you can override this per app in the Apps tab.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thay thế trực tiếp hoạt động giống UniKey: Enter có tác dụng ngay. Terminal luôn dùng kiểu gạch chân; bạn có thể đổi riêng cho từng ứng dụng ở tab Ứng dụng."
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}
