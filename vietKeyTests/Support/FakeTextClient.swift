@@ -11,6 +11,9 @@ nonisolated final class FakeTextClient: NSObject, IMKTextInput {
     var marked = ""
     var ignoresMarkedText = false
     var reportsCaret = true
+    /// Like a terminal in an Electron app: committed text goes to the shell and the field is cleared.
+    var forwardsText = false
+    private(set) var forwarded = ""
     private(set) var caretQueries = 0
     private(set) var clientIDQueries = 0
     private(set) var markedRangeQueries = 0
@@ -24,7 +27,7 @@ nonisolated final class FakeTextClient: NSObject, IMKTextInput {
         self.clientID = clientID
     }
 
-    var screen: String { text + marked }
+    var screen: String { forwarded + text + marked }
 
     /// What the app does with a key the input method didn't consume.
     func receiveUnhandledKey(_ character: Character) {
@@ -47,6 +50,11 @@ nonisolated final class FakeTextClient: NSObject, IMKTextInput {
         text = (text as NSString).replacingCharacters(in: range, with: inserted)
         caret = range.location + (inserted as NSString).length
         marked = ""
+        if forwardsText {
+            forwarded += text
+            text = ""
+            caret = 0
+        }
     }
 
     func setMarkedText(_ string: Any!, selectionRange: NSRange, replacementRange: NSRange) {

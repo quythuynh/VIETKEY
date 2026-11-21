@@ -12,13 +12,11 @@ final class InputSession {
 
     private var engine = VietEngine()
     private var engineRevision = -1
-    private var strategy: any OutputStrategy = MarkedTextStrategy()
-    private var strategyMode: OutputMode = .markedText
+    private let output = OutputSelector()
     private var hotkeyMonitor = HotkeyMonitor()
     private(set) var clientBundleID: String?
     private var composingClientID: String?
     private var activeClientID: String?
-    private var caretCheckedClientID: String?
     private var markedTextVerifiedClientIDs: Set<String> = []
     private var menuCache: (key: String, menu: NSMenu)?
 
@@ -62,7 +60,7 @@ final class InputSession {
         }
         #endif
         if let client {
-            strategy.commit(text, to: client)
+            output.strategy.commit(text, to: client)
         }
     }
 
@@ -106,18 +104,19 @@ final class InputSession {
             commit(client)
             return false
         case .engine(let key):
-            if engine.isComposing && !strategy.isInSync(with: client) {
+            if engine.isComposing && !output.strategy.isInSync(with: client) {
                 engine.reset()
+                output.wordWasLost(clientID: clientID, bundleID: clientBundleID)
             }
             if !engine.isComposing {
-                fallBackToMarkedTextIfCaretUnknown(client, clientID: clientID)
+                output.checkCaret(of: client, clientID: clientID)
             }
-            let output = engine.process(key)
+            let result = engine.process(key)
             composingClientID = engine.isComposing ? clientID : nil
-            strategy.apply(output, to: client)
+            output.strategy.apply(result, to: client)
 
             // The app ignores marked text (remote desktop, games): hand the key back and pass keys through.
-            if strategyMode == .markedText, output.consumed, !output.composing.isEmpty,
+            if output.mode == .markedText, result.consumed, !result.composing.isEmpty,
                !markedTextVerifiedClientIDs.contains(clientID ?? ""),
                !markedTextShows(in: client, clientID: clientID) {
                 Log.input.notice("\(self.clientBundleID ?? "?", privacy: .public) ignores marked text; passing keys through")
@@ -127,9 +126,9 @@ final class InputSession {
                 return false
             }
             #if DEBUG
-            Log.input.debug("key \(String(describing: key), privacy: .public) → consumed=\(output.consumed) composing='\(output.composing, privacy: .public)' commit='\(output.commitText, privacy: .public)'")
+            Log.input.debug("key \(String(describing: key), privacy: .public) → consumed=\(result.consumed) composing='\(result.composing, privacy: .public)' commit='\(result.commitText, privacy: .public)'")
             #endif
-            return output.consumed
+            return result.consumed
         }
     }
 
@@ -178,22 +177,6 @@ final class InputSession {
     private func reloadSettings() {
         engine.options = settings.engineOptions
         engineRevision = settings.revision
-        caretCheckedClientID = nil
-        useStrategy(StrategyResolver.mode(for: clientBundleID, settings: settings))
-    }
-
-    /// Direct replacement needs the caret position; checked once per client, when typing starts.
-    private func fallBackToMarkedTextIfCaretUnknown(_ client: any IMKTextInput, clientID: String?) {
-        guard strategyMode == .directReplace, caretCheckedClientID != clientID else { return }
-        caretCheckedClientID = clientID
-        if client.selectedRange().location == NSNotFound {
-            useStrategy(.markedText)
-        }
-    }
-
-    private func useStrategy(_ mode: OutputMode) {
-        guard mode != strategyMode else { return }
-        strategy = StrategyResolver.makeStrategy(for: mode)
-        strategyMode = mode
+        output.reload(StrategyResolver.mode(for: clientBundleID, settings: settings), clientID: activeClientID)
     }
 }

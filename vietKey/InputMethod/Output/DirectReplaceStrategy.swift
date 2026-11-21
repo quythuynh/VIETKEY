@@ -6,6 +6,9 @@ final class DirectReplaceStrategy: OutputStrategy {
     /// Where the current word ends on screen, and the word as written there.
     private var expectedLocation: Int?
     private var shownWord = ""
+    /// Whether the app ever showed a word we wrote. Terminals in Electron apps hand each letter
+    /// to the shell and clear their field, so there is never anything to replace.
+    private(set) var keepsWrittenText = false
 
     /// The word is still being typed if the caret sits right after what we wrote. When the caret
     /// isn't where we expected (the location we computed from a stale caret, e.g. right after a
@@ -14,9 +17,11 @@ final class DirectReplaceStrategy: OutputStrategy {
         guard !shownWord.isEmpty else { return true }
         let caret = client.selectedRange().location
         guard caret != NSNotFound else { return false }
-        if caret == expectedLocation { return true }
-        guard wordEnds(at: caret, in: client) == true else { return false }
-        expectedLocation = caret
+        if caret != expectedLocation {
+            guard wordEnds(at: caret, in: client) == true else { return false }
+            expectedLocation = caret
+        }
+        keepsWrittenText = true
         return true
     }
 

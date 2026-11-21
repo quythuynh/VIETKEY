@@ -54,6 +54,7 @@ struct StrategyResolverTests {
         let settings = makeSettings()
         settings.outputMode = .directReplace
         #expect(StrategyResolver.mode(for: "com.apple.Terminal", settings: settings) == .markedText)
+        #expect(StrategyResolver.mode(for: "com.stablyai.orca", settings: settings) == .markedText)
         #expect(StrategyResolver.mode(for: "com.microsoft.VSCode", settings: settings) == .directReplace)
         #expect(StrategyResolver.mode(for: "com.apple.TextEdit", settings: settings) == .directReplace)
     }

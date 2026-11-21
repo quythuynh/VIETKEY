@@ -2,11 +2,18 @@ import Foundation
 
 enum StrategyResolver {
     /// Terminals and editors with their own text engine, which can't replace text before the cursor.
+    /// Other apps that drop typed text are detected while typing (`OutputSelector`).
     static let markedTextOnlyPrefixes = [
         "com.apple.Terminal",
         "com.googlecode.iterm2",
         "dev.warp.",
         "com.mitchellh.ghostty",
+        "net.kovidgoyal.kitty",
+        "org.alacritty",
+        "com.github.wez.wezterm",
+        "co.zeit.hyper",
+        "org.tabby",
+        "com.stablyai.orca",
         "com.jetbrains.",
         "com.google.android.studio",
         "com.sublimetext.",

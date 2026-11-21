@@ -121,6 +121,27 @@ struct InputSessionTests {
         #expect(client.marked == "á")
     }
 
+    @Test func clientForwardingTextFallsBackToMarkedText() {
+        let session = makeSession(), client = FakeTextClient()
+        client.forwardsText = true
+        session.activate(client)
+        type("khi suwr dungj tren app mowis ", into: client, with: session)
+        #expect(client.screen == "khi sử dụng tren app mới ")
+        session.activate(client)
+        type("vieejt ", into: client, with: session)
+        #expect(client.screen.hasSuffix(" việt "))
+    }
+
+    @Test func clickingElsewhereKeepsDirectReplacement() {
+        let session = makeSession(), client = FakeTextClient()
+        session.activate(client)
+        type("xin ch", into: client, with: session)
+        client.caret = 0
+        type("as ", into: client, with: session)
+        #expect(client.text == "á xin ch")
+        #expect(client.marked.isEmpty)
+    }
+
     @Test func clientIgnoringMarkedTextFallsBackToRawKeys() {
         settings.outputMode = .markedText
         let session = makeSession(), client = FakeTextClient()
