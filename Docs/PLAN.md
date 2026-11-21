@@ -42,7 +42,7 @@ Bộ gõ tiếng Việt kiểu UniKey, chạy native trên macOS, có:
 | Số process | **1 app duy nhất** = Input Method + cửa sổ Settings | Không cần App Group, không đồng bộ liên process, không bị 2 icon |
 | Icon menu bar | Dùng **ô Input Source của hệ thống**, khai báo **2 input mode `vi` / `en`** | Hệ thống tự đổi icon V/E, không cần `NSStatusItem` hay `MenuBarExtra` |
 | Info.plist | `LSUIElement = YES` (không dùng `LSBackgroundOnly`) | Để cửa sổ Settings nhận được focus |
-| Xuất chữ ra app | Mặc định **marked text**; tuỳ chọn **thay thế trực tiếp** theo từng app | Marked text ổn định nhất; thay thế trực tiếp không có gạch chân nhưng một số app không hỗ trợ |
+| Xuất chữ ra app | Mặc định **thay thế trực tiếp**; **marked text** cho terminal và app không giữ chữ, chọn được theo từng app | Không gạch chân; app không thay được chữ trước con trỏ được nhận ra (danh sách bundle ID + phát hiện khi gõ) và dùng marked text |
 | Phân phối | **Ngoài App Store**, ký Developer ID + notarize, **không sandbox** | IM phải nằm trong `~/Library/Input Methods/`, app sandbox không tự copy vào được |
 | Engine | `struct`, `Sendable`, **chỉ dùng Swift stdlib**, không Foundation/AppKit | Test độc lập, có thể port sang nền tảng khác |
 | Deployment target | macOS 14+ | `@Observable`, SwiftUI Settings hiện đại |
@@ -126,8 +126,9 @@ vietKey/
 │   │   ├── IMMenu.swift                       menu của icon Input Source
 │   │   └── Output/
 │   │       ├── OutputStrategy.swift           protocol
-│   │       ├── MarkedTextStrategy.swift       mặc định
-│   │       ├── DirectReplaceStrategy.swift    giai đoạn 5
+│   │       ├── MarkedTextStrategy.swift       terminal, app không giữ chữ
+│   │       ├── DirectReplaceStrategy.swift    mặc định
+│   │       ├── OutputSelector.swift           chọn chiến lược cho client, học client không giữ chữ
 │   │       └── StrategyResolver.swift         chọn theo bundle ID app đích
 │   ├── Settings/
 │   │   ├── AppSettings.swift                  @Observable, lưu UserDefaults.standard, sinh EngineOptions
@@ -282,8 +283,8 @@ Icon chỉ hiện khi vietKey đang là input source được chọn (hành vi c
 
 | Chiến lược | Cách làm | Khi nào |
 |---|---|---|
-| `MarkedTextStrategy` | `setMarkedText` khi đang gõ, `insertText` khi kết thúc từ | Mặc định |
-| `DirectReplaceStrategy` | `insertText(_:replacementRange:)` dựa trên `selectedRange()` | Tuỳ chọn, không gạch chân; tự fallback về marked text với app không hỗ trợ (Terminal, Electron, JetBrains, ...) |
+| `DirectReplaceStrategy` | `insertText(_:replacementRange:)` dựa trên `selectedRange()`; Delete chỉ bỏ chữ cuối thì trả phím cho app tự xoá | Mặc định, không gạch chân |
+| `MarkedTextStrategy` | `setMarkedText` khi đang gõ, `insertText` khi kết thúc từ | Terminal, JetBrains, Sublime (`StrategyResolver`); client không báo con trỏ; client chưa từng giữ chữ VIET viết ra, như terminal trong app Electron (`OutputSelector`) |
 
 Reset buffer khi: click chuột, phím mũi tên, đổi app, con trỏ đổi vị trí.
 
