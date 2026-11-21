@@ -3,6 +3,8 @@
 #
 # Usage:
 #   Scripts/install-dev.sh          Build (Debug) with xcodebuild, then install.
+#   CONFIGURATION=Release Scripts/install-dev.sh
+#                                   Optimized build without per-key logs, for daily use.
 #   As a Scheme → Build → Post-action, with "Provide build settings from: vietKey":
 #       "$SRCROOT/Scripts/install-dev.sh"
 #   In that case the app Xcode just built ($BUILT_PRODUCTS_DIR) is installed, no rebuild.
@@ -14,13 +16,14 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 DEST="$HOME/Library/Input Methods"
 APP_NAME="vietKey.app"
+CONFIGURATION="${CONFIGURATION:-Debug}"
 
 if [[ -n "${BUILT_PRODUCTS_DIR:-}" ]]; then
     APP="$BUILT_PRODUCTS_DIR/$APP_NAME"
 else
-    xcodebuild -project "$ROOT/vietKey.xcodeproj" -scheme vietKey -configuration Debug \
+    xcodebuild -project "$ROOT/vietKey.xcodeproj" -scheme vietKey -configuration "$CONFIGURATION" \
         -derivedDataPath "$ROOT/.build-dev" build -quiet
-    APP="$ROOT/.build-dev/Build/Products/Debug/$APP_NAME"
+    APP="$ROOT/.build-dev/Build/Products/$CONFIGURATION/$APP_NAME"
 fi
 
 [[ -d "$APP" ]] || { echo "error: $APP not found" >&2; exit 1; }
