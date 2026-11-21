@@ -52,6 +52,17 @@ final class DirectReplaceStrategy: OutputStrategy {
         expectedLocation = range.location + output.insertText.utf16.count
     }
 
+    /// Removing just the last letter is the app's own backspace, which is smoother than a
+    /// replacement: no round trip, and key repeat and undo behave as usual.
+    func letsAppDelete(_ output: EngineOutput) -> Bool {
+        guard output.insertText.isEmpty, let last = shownWord.last,
+              output.deleteCount == String(last).utf16.count
+        else { return false }
+        shownWord = output.composing
+        expectedLocation = expectedLocation.map { $0 - output.deleteCount }
+        return true
+    }
+
     func commit(_ text: String, to client: any IMKTextInput) {
         expectedLocation = nil
         shownWord = ""

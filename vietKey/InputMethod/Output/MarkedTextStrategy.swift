@@ -17,6 +17,10 @@ final class MarkedTextStrategy: OutputStrategy {
         }
     }
 
+    func letsAppDelete(_ output: EngineOutput) -> Bool {
+        false
+    }
+
     func commit(_ text: String, to client: any IMKTextInput) {
         if !text.isEmpty {
             insert(text, into: client)

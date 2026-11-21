@@ -113,6 +113,9 @@ final class InputSession {
             }
             let result = engine.process(key)
             composingClientID = engine.isComposing ? clientID : nil
+            if key == .backspace, output.strategy.letsAppDelete(result) {
+                return false
+            }
             output.strategy.apply(result, to: client)
 
             // The app ignores marked text (remote desktop, games): hand the key back and pass keys through.

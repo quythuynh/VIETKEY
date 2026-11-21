@@ -113,6 +113,27 @@ struct InputSessionTests {
         #expect(client.text == TypingSimulatorReference.type(word) + " ")
     }
 
+    @Test func backspaceRemovingTheLastLetterIsLeftToTheApp() {
+        let session = makeSession(), client = FakeTextClient()
+        session.activate(client)
+        type("vieejt", into: client, with: session)
+        #expect(!session.handle(KeyEvents.key("⌫"), client: client))
+        client.receiveUnhandledKey("⌫")
+        type("⌫eejt ", into: client, with: session)
+        #expect(client.text == "việt ")
+    }
+
+    @Test(arguments: ["toans⌫", "hoaf⌫", "nguwowif⌫⌫", "thuowngf⌫⌫⌫", "ass⌫", "as⌫b", "dduwowngf⌫⌫⌫⌫⌫⌫⌫"])
+    func backspaceInWordMatchesTheEngine(input: String) {
+        for mode in [OutputMode.directReplace, .markedText] {
+            settings.outputMode = mode
+            let session = makeSession(), client = FakeTextClient()
+            session.activate(client)
+            type(input + " ", into: client, with: session)
+            #expect(client.screen == TypingSimulatorReference.type(input) + " ", "\(mode)")
+        }
+    }
+
     @Test func clientWithoutCaretFallsBackToMarkedText() {
         let session = makeSession(), client = FakeTextClient()
         client.reportsCaret = false

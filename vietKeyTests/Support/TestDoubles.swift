@@ -38,7 +38,7 @@ func makeSettings() -> AppSettings {
 enum TypingSimulatorReference {
     static func type(_ word: String) -> String {
         var engine = VietEngine()
-        word.forEach { _ = engine.process(.character($0)) }
+        word.forEach { _ = engine.process($0 == "⌫" ? .backspace : .character($0)) }
         return engine.commit()
     }
 }
