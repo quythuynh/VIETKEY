@@ -180,6 +180,9 @@ final class InputSession {
     private func reloadSettings() {
         engine.options = settings.engineOptions
         engineRevision = settings.revision
-        output.reload(StrategyResolver.mode(for: clientBundleID, settings: settings), clientID: activeClientID)
+        output.reload(
+            StrategyResolver.mode(for: clientBundleID, settings: settings),
+            clientID: activeClientID, bundleID: clientBundleID
+        )
     }
 }

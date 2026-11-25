@@ -4,7 +4,6 @@ enum StrategyResolver {
     /// Terminals and editors with their own text engine, which can't replace text before the cursor.
     /// Other apps that drop typed text are detected while typing (`OutputSelector`).
     static let markedTextOnlyPrefixes = [
-        "com.apple.Terminal",
         "com.googlecode.iterm2",
         "dev.warp.",
         "com.mitchellh.ghostty",
@@ -51,10 +50,20 @@ enum StrategyResolver {
         return settings.outputMode
     }
 
-    static func makeStrategy(for mode: OutputMode) -> any OutputStrategy {
+    /// Terminals whose inserted text goes to the shell byte for byte, control characters included.
+    static let shellInputPrefixes = [
+        "com.apple.Terminal",
+    ]
+
+    static func isShellTerminal(_ bundleID: String?) -> Bool {
+        guard let bundleID else { return false }
+        return shellInputPrefixes.contains(where: bundleID.hasPrefix)
+    }
+
+    static func makeStrategy(for mode: OutputMode, bundleID: String?) -> any OutputStrategy {
         switch mode {
         case .markedText: MarkedTextStrategy()
-        case .directReplace: DirectReplaceStrategy()
+        case .directReplace: isShellTerminal(bundleID) ? ShellInputStrategy() : DirectReplaceStrategy()
         }
     }
 }

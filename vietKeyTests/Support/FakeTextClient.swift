@@ -14,6 +14,8 @@ nonisolated final class FakeTextClient: NSObject, IMKTextInput {
     /// Like a terminal in an Electron app: committed text goes to the shell and the field is cleared.
     var forwardsText = false
     private(set) var forwarded = ""
+    /// Like Terminal: inserted text goes to the shell's line editor, where DEL erases a character.
+    var actsAsShell = false
     private(set) var caretQueries = 0
     private(set) var clientIDQueries = 0
     private(set) var markedRangeQueries = 0
@@ -43,6 +45,17 @@ nonisolated final class FakeTextClient: NSObject, IMKTextInput {
 
     func insertText(_ string: Any!, replacementRange: NSRange) {
         let inserted = string as? String ?? ""
+        if actsAsShell {
+            for character in inserted {
+                if character == "\u{7F}" {
+                    if !text.isEmpty { text.removeLast() }
+                } else {
+                    text.append(character)
+                }
+            }
+            caret = (text as NSString).length
+            return
+        }
         let range = replacementRange.location == NSNotFound ? NSRange(location: caret, length: 0) : replacementRange
         // Real apps ignore ranges outside their text.
         guard NSMaxRange(range) <= (text as NSString).length else { return }
